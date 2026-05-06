@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37203.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecommendationSystemAI", "RecommendationSystemAI\RecommendationSystemAI.csproj", "{77510B35-EA0D-4EE1-89CF-C54E51683FCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77510B35-EA0D-4EE1-89CF-C54E51683FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77510B35-EA0D-4EE1-89CF-C54E51683FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77510B35-EA0D-4EE1-89CF-C54E51683FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77510B35-EA0D-4EE1-89CF-C54E51683FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33E1C432-962A-4B43-AF60-91984E875221}
+	EndGlobalSection
+EndGlobal
