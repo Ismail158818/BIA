@@ -1,0 +1,124 @@
+﻿@model List<RecommendationSystemAI.Models.Product>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>نظام التوصيات الذكي</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <style>
+       
+        body { background-color: #f8f9fa; }
+        .history-table th { background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-primary">نظام التوصيات الذكي (الخوارزميات الجينية)</h2>
+
+        <div class="card shadow-sm p-4 mb-4 border-0">
+            <form method="post" action="/Home/Index" onsubmit="showLoading()">
+                <div class="row g-3 align-items-center justify-content-center">
+                    <div class="col-auto">
+                        <label for="targetUserId" class="col-form-label fw-bold">أدخل رقم المستخدم (User ID):</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="targetUserId" name="targetUserId" class="form-control" value="@(ViewBag.UserId ?? 1)" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary px-4 shadow-sm">توليد التوصيات</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <div id="loadingIndicator" class="d-none text-center my-5 py-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"></div>
+            <h5 class="mt-3 text-secondary">جاري تحليل سلوك المستخدم وتوليد التوصيات عبر الخوارزمية الجينية...</h5>
+        </div>
+
+        <div id="resultsSection">
+            @if (Model != null && Model.Any())
+            {
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-header bg-secondary text-white fw-bold">
+                                سجل تفاعل المستخدم السابـق
+                            </div>
+                            <div class="card-body p-0">
+                                @if (ViewBag.UserHistory != null && ((List<RecommendationSystemAI.Models.Product>)ViewBag.UserHistory).Any())
+                                {
+                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                        <table class="table table-hover history-table mb-0 text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>رقم المنتج</th>
+                                                    <th>الفئة</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in (List<RecommendationSystemAI.Models.Product>)ViewBag.UserHistory)
+                                                {
+                                                    <tr>
+                                                        <td>@item.ProductId</td>
+                                                        <td>@item.Category</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted text-center p-3">لا يوجد سجل تفاعل سابق لهذا المستخدم.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 mb-4">
+                        <div class="alert alert-success shadow-sm border-0 mb-4">
+                            تم توليد التوصيات بنجاح!
+                            | سكور الملاءمة (Fitness Score): <strong>@ViewBag.FitnessScore</strong>
+                        </div>
+
+                        <h5 class="mb-3 fw-bold text-success">المنتجات المقترحة من الخوارزمية:</h5>
+                        <div class="row row-cols-1 row-cols-md-3 g-3">
+                            @foreach (var product in Model)
+                            {
+                                <div class="col">
+                                    <div class="card h-100 border-success shadow-sm text-center">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-success mb-3">المنتج #@product.ProductId</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">@product.Category</h6>
+                                            <p class="card-text fs-5 fw-bold">@product.Price.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loadingIndicator').classList.remove('d-none');
+            var results = document.getElementById('resultsSection');
+            if (results) {
+                results.classList.add('d-none');
+            }
+        }
+    </script>
+</body>
+</html>
